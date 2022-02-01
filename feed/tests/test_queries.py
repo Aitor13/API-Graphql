@@ -74,5 +74,7 @@ class FeedTests(GraphQLTestCase):
         )
         self.assertResponseNoErrors(response)
         content = json.loads(response.content)
-        self.assertEqual(content['data']['getTimelineFeeds'][0]['feed'], feed1.feed)
-        self.assertEqual(content['data']['getTimelineFeeds'][1]['feed'], feed2.feed)
+        self.assertTrue(content['data']['getTimelineFeeds'][0]['feed'] == feed1.feed or 
+                        content['data']['getTimelineFeeds'][0]['feed'] == feed2.feed)
+        self.assertTrue(content['data']['getTimelineFeeds'][1]['feed'] == feed1.feed or
+                        content['data']['getTimelineFeeds'][1]['feed'] == feed2.feed)

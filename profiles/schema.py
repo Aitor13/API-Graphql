@@ -44,16 +44,11 @@ class ProfilesQuery(UserQuery, MeQuery, graphene.ObjectType):
     
     @login_required
     def resolve_get_who_i_follow(self, info):
-        profiles = CustomUser.objects.all()
-        user_i_follow_list = []
-        
-        for profile in profiles:
-            friends = profile.friends.all()
-            user_i_follow_list += [profile for friend in friends if info.context.user == friend]   
+        user_i_follow_list = CustomUser.objects.filter(friends__username=info.context.user) 
         return user_i_follow_list
     
         
 def get_follower_profile(user):
-    return CustomUser.objects.filter(username=user).friends.all()
+    return CustomUser.objects.get(username=user).friends.all()
     
 
