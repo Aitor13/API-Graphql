@@ -13,7 +13,7 @@ Social Network API with Graphql, Django and JWT for authentication
 Create your personal directory and clone this project inside:
 
 ```
-git clone https://github.com/Aitor13/Social-Network-Api-Graphql-Django.git
+git clone https://github.com/Aitor13/API-Graphql.git
 ```
 
 Create a virtual environment inside you personal directory and start it:
