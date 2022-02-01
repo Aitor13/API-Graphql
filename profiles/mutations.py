@@ -35,7 +35,6 @@ class AcceptRequest(graphene.Mutation):
         profile = CustomUser.objects.get(username=info.context.user)
         request = FollowRequests.objects.get(pk=id, to_user=profile)
         profile_user_follower = request.from_user
-        print(profile_user_follower)
         # Add like a friend
         profile.friends.add(profile_user_follower)
         profile.save()
@@ -66,7 +65,7 @@ class DeleteFollower(graphene.Mutation):
     def mutate(cls, root, info, user):
         profile = CustomUser.objects.get(username=info.context.user)
         profile_to_delete = CustomUser.objects.get(username=user)
-        [profile.friends.remove(profile_to_delete) for friend in profile.friends.all() if friend.username == user]
+        profile.friends.remove(profile_to_delete)
         msg = f"{user} deleted"
         return DeleteFollower(msg=msg)
     
@@ -79,7 +78,7 @@ class DeleteFollowing(graphene.Mutation):
     def mutate(cls, root, info, user):
         profile = CustomUser.objects.get(username=user)
         profile_to_delete = CustomUser.objects.get(username=info.context.user)
-        [profile.friends.remove(profile_to_delete) for friend in profile.friends.all() if friend.username == str(info.context.user)]
+        profile.friends.remove(profile_to_delete)
         msg = f"{user} and you are no longer friends"
         return DeleteFollowing(msg=msg)
             
